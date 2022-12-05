@@ -11,8 +11,8 @@ public TTS(String words) {
     if (voice != null) {
         voice.allocate();// Allocating Voice
         try {
-            voice.setRate(150);// Setting the rate of the voice
-            voice.setPitch(190);// Setting the Pitch of the voice
+            voice.setRate(160);// Setting the rate of the voice
+            voice.setPitch(110);// Setting the Pitch of the voice
             voice.setVolume(3);// Setting the volume of the voice
             SpeakText(words);// Calling speak() method
 

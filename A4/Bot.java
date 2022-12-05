@@ -20,7 +20,7 @@ public class Bot extends JFrame {
     DBconnection db = new DBconnection(); 
 
 
-
+    TTS text;
     String g = "";
     int count = 0;
     String custName = null;
@@ -33,6 +33,7 @@ public class Bot extends JFrame {
     int seatid;
     int mov = 0;
     ActionEvent a;
+    boolean tts = false;
 
     
 public Bot(){
@@ -126,6 +127,9 @@ chatbox.addActionListener(new ActionListener() {
             
                 if (db.checkExistingCust(email)){
                     res("Welcome back!");
+                    if(tts){
+                    text.SpeakText("Welcome back. Please select a movie. One, Black Adam. Two, Smile. Three, Thor: Love and Thunder");
+                    }
                     res2("Select a movie: ");
                     custGender = db.getCustGender(email).charAt(0);
                     custName = db.getCustName(email);
@@ -138,6 +142,9 @@ chatbox.addActionListener(new ActionListener() {
                 }
                 else {
                 res("Welcome");
+                if(tts){
+                text.SpeakText("Welcome. Please enter your name: ");
+                }
                         res("Please enter your name: ");
                         count++;
                         b.setVisible(true);		
@@ -149,6 +156,9 @@ chatbox.addActionListener(new ActionListener() {
                 String[] femaleOptions = {"F","f","Female","female","Woman","woman"};
                 custName = g;
                 res("Please enter your gender: (M/F)");
+                if(tts){
+                text.SpeakText("Please enter your gender");
+                }
                 if(patternMatcher(maleOptions, g))
                 custGender = 'M';
                 else if(patternMatcher(femaleOptions,g))
@@ -164,6 +174,9 @@ chatbox.addActionListener(new ActionListener() {
             else if (count == 3) {
                 if (custGender == 0) {custGender = g.charAt(0); }
                 res("Please enter your birth date: (mm/dd/yyyy)");
+                if(tts){
+                text.SpeakText("Please enter your birth date");
+                }
                 count++;
                 b.setText("Cancel");
                 b.setVisible(true);
@@ -176,6 +189,9 @@ chatbox.addActionListener(new ActionListener() {
                 custBdate = g;
                 db.createCustomer(custName, custGender+ "", email, custBdate);
                 res("Account created!");
+                if(tts){
+                text.SpeakText("Your account has been successfully created! Please select a movie. One, Black Adam. Two, Smile. Three, Thor: Love and Thunder");
+                }
                 res("Select a movie: ");
                 for (int i = 0; i < db.getAllMovies().size(); i++) {
                         res2(db.getAllMovies().get(i) + " ");
@@ -202,6 +218,9 @@ chatbox.addActionListener(new ActionListener() {
                     movieName = "Thor: Love and Thunder";                
                 }
                 res("Select your seat: ");
+                if(tts){
+                text.SpeakText("Please select your seat");
+                }
                 res(movieName);
                 String s = "";
                 for(int i = 0; i < db.showAvailableSeats(movieName).size(); i++){
@@ -220,7 +239,13 @@ chatbox.addActionListener(new ActionListener() {
                 db.chooseSeat(email, movieName, seat); 
                 seatid = db.getSeatID(email, movieName); 
                 res("Seat selected successfully!");
+                if(tts){
+                text.SpeakText("Seat selected successfully!");
+                }
                 res("Confirm your booking: (y/n)");
+                if(tts){
+                text.SpeakText("Please confirm your booking");
+                }
                 b.setText("Yes");
                 b2.setText("No");
                 b2.setVisible(true);
@@ -253,6 +278,9 @@ chatbox.addActionListener(new ActionListener() {
             else if (count == 8){
                 if (db.getMovieTicketID(email) == -1){
                     res("You do not have a ticket registered to this email. \nHow else can I be of assistance? ");
+                    if(tts){
+                    text.SpeakText("You do not have a ticket registered to this email. \nHow else can I be of assistance? ");
+                    }
                     b.setText("Book a Ticket");
                     b2.setText("Amend your booking");
                     b.setVisible(true);
@@ -261,6 +289,9 @@ chatbox.addActionListener(new ActionListener() {
                 }
                 else {
                     res("Here is your ticket summary: ");
+                    if(tts){
+                        text.SpeakText("Here is your ticket summary. What would you like to change?");
+                        }
                     res(db.showMovieTicket(db.getMovieTicketID(email)));
                     res("What would you like to change");
                     b.setText("Movie");
@@ -274,6 +305,9 @@ chatbox.addActionListener(new ActionListener() {
             else if (count == 10){
                 if (db.getMovieTicketID(email) == -1){
                     res("You do not have a ticket registered to this email. \nCan I help you with anything else?");
+                    if(tts){
+                    text.SpeakText("You do not have a ticket registered to this email. Can I help you with anything else?");
+                    }
                     b.setText("Book a Ticket");
                     b2.setText("Amend your booking");
                     b.setVisible(true);
@@ -284,6 +318,9 @@ chatbox.addActionListener(new ActionListener() {
                     res("Here is your ticket summary: ");
                     res(db.showMovieTicket(db.getMovieTicketID(email)));
                     res("Are you sure you want to delete your booking? ");
+                    if(tts){
+                    text.SpeakText("Here's your ticket summary. Are you sure you'd like to delete your booking?");
+                    }
                     b.setText("Delete");
                     b.setVisible(true);
                     b2.setText("Keep");
@@ -318,6 +355,9 @@ b.addActionListener(new ActionListener() {
                 b2.setVisible(false);
                 b3.setVisible(false);
               res("Select your movie: ");
+              if(tts){
+                text.SpeakText("Please select your new movie");
+              }
               for (int i = 0; i < db.getAllMovies().size(); i++) {
                 res2(db.getAllMovies().get(i) + " ");
             }
@@ -329,6 +369,9 @@ b.addActionListener(new ActionListener() {
             else if (b.getText().equals("Delete")){
                 db.deleteMovieTicket(email, movieName);
                 db.unselectSeat(seatid);
+                if(tts){
+                text.SpeakText("Your booking has been deleted and we've sent you a confirmation email. Please check your inbox");
+                }
                 res("Booking deleted! Email sent.");
                 Email send = new Email(email,"Movie Booking Deleted", "Thank you! We hope to see you again soon.");
                 b.setText("Book a Ticket");
@@ -346,13 +389,19 @@ b.addActionListener(new ActionListener() {
             b3.setVisible(false);
             b.setVisible(true);
 
-            res("Okay, I can help you with that. \nEnter your email: ");
+            res("Okay, I can help you with that. Enter your email: ");
+            if(tts){
+            text.SpeakText("You chose to book a ticket, I can help you with that. Please enter your email: ");
+            }
             String email = g;
             }
             else if (b.getText().equals("Male")){
             count = 4;
             custGender = 'M';
             res("Please enter your birth date: (mm/dd/yyyy)");
+            if(tts){
+            text.SpeakText("Please enter your birth date");
+            }
             b2.setText("Amend your booking");
             b2.setVisible(false);
             b.setText("Cancel");
@@ -365,6 +414,9 @@ b.addActionListener(new ActionListener() {
                 db.createMovieTicket(email, movieName, seatid, "");
                 Chatarea.setText("");
                     Email send = new Email(email,"Movie Booking Confirmation", "Thank you for your order! Your ticket ID is : " + db.getMovieTicketID(email) + "\nOrder Summary\nCustomer Information\n\tName: " + custName + "\n\tEmail: " + email + "\n\tGender: " + custGender + "\nBooking Confirmation\n\tMovie Name: " + movieName + "\nYour Selected Seat: " + seat + "\nPayment link: www.paypal.me/zeyad1910");
+                    if(tts){
+                        text.SpeakText("Your booking is now confirmed. Please check your inbox for details");
+                    }
                     res("The receipt has been sent to your email.");
                     res2("Can I help you with anything else?");
                 b.setText("Book a Ticket");
@@ -384,6 +436,9 @@ b2.addActionListener(new ActionListener(){
                 count = 4;
                 custGender = 'F';
                 res("Please enter your birth date: (mm/dd/yyyy)");
+                if(tts){
+                text.SpeakText("Please enter your birth date");
+                }
                 b2.setText("Amend your booking");
                 b2.setVisible(false);
                 b.setText("Cancel");
@@ -398,6 +453,9 @@ b2.addActionListener(new ActionListener(){
                 b2.setVisible(false);
                 b3.setVisible(false);
                 res("Select your seat: ");
+                if(tts){
+                text.SpeakText("Please select your seat");
+                }
                 res(movieName);
                
                 String s = "";
@@ -425,6 +483,9 @@ b2.addActionListener(new ActionListener(){
                 b2.setVisible(false);
                 b3.setVisible(false);
                 res("Sure, I can help you with that. Please enter your email: ");
+                if(tts){
+                    text.SpeakText("You chose to amend a ticket. Please enter your e-mail");
+                    }
                 count = 8;
             }
             else if(b2.getText().equals("No")){
@@ -444,6 +505,9 @@ b3.addActionListener(new ActionListener(){
     public void actionPerformed(ActionEvent e){
         if (b3.getText().equals("Cancel your booking")){
             res("Enter your email: ");
+            if(tts){
+                text.SpeakText("You chose to cancel your booking. Please enter your email");
+            }
             b.setText("Cancel");
             b.setVisible(true);
             b2.setVisible(false);
@@ -459,8 +523,8 @@ b4.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("button was clicked!");
-       TTS text = new TTS("Hello, my name is Sally and I'm your ticket booking virtual assistant. How may I assist you? ");
-       text.SpeakText("squidward ballsucking spongebob blowjob");
+        tts = true;
+        text = new TTS("Hello, my name is Sally and I'm your ticket booking virtual assistant. How may I assist you? ");
 }       
     });
 }
