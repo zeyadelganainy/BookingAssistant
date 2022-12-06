@@ -50,6 +50,8 @@ public class Email {
 
 	
 	}
+
+	
 	
 	public class SMTPAuthenticator extends javax.mail.Authenticator {
 		public PasswordAuthentication getPasswordAuthentication() {

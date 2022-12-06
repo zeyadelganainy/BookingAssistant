@@ -55,6 +55,10 @@
         "A4/libs/en_us.jar",
         "A4/libs/freetts.jar",
         "A4/libs/freetts-jsapi10.jar",
-        "A4/libs/mbrola.jar"
+        "A4/libs/mbrola.jar",
+        "A4/libs/biweekly-0.6.4-javadoc.jar",
+        "A4/libs/biweekly-0.6.1.jar",
+        "A4/libs/vinnie-2.0.2.jar",
+        "A4/libs/emul-0.54.jar"
     ]
 }

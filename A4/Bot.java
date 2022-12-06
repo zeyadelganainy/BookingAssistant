@@ -1,13 +1,13 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.IOException;
 import java.util.Arrays;
 import javax.swing.*;
-import java.io.*;
-import com.sun.speech.freetts.*;
 import java.awt.Color;
-
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class Bot extends JFrame {
     private JTextArea Chatarea = new JTextArea();
@@ -106,9 +106,21 @@ chatbox.addActionListener(new ActionListener() {
                     for (int i = 0; i < db.getAllMovies().size(); i++) {
                         res2(i + 1 + ". " + db.getAllMovies().get(i).substring(0,db.getAllMovies().get(i).indexOf(",")) + " ");
                 }
+                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    try {
+                        Desktop.getDesktop().browse(new URI("https://www.cineplex.com/"));
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (URISyntaxException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
                 b.setVisible(true);
                 b2.setVisible(true);
                 b3.setVisible(true);
+                
                 }
 
                 String [] contactOptions = {"Contact", "contact", "Contact Information", "Contact information", "contact information", "Contact Us", "Contact us","contact us", "Phone Number", "Phone number","phone number", "Location", "location"};     
@@ -119,8 +131,104 @@ chatbox.addActionListener(new ActionListener() {
                     b.setVisible(true);
                     b2.setVisible(true);
                     b3.setVisible(true);
-                }           
-            
+                    if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                        try {
+                            Desktop.getDesktop().browse(new URI("https://cineplex.service-now.com/gsc?id=cpx_gsc_contact_us"));
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (URISyntaxException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }     
+                String [] thorReviews = {"thor movie review", "thor love and thunder review", "how good is thor? ", "thor review","Thor review", "Thor movie review", "Thor love and thunder review"}; 
+                if(patternMatcher(thorReviews, g)){
+                    res2("Here's what I found on YouTube for Thor: Love & Thunder reviews");
+                    b.setVisible(true);
+                    b2.setVisible(true);
+                    b3.setVisible(true);
+                    if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                        try {
+                            Desktop.getDesktop().browse(new URI("https://www.youtube.com/results?search_query=thor+love+and+thunder+review"));
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (URISyntaxException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                String [] smileReviews = {"smile movie review", "smile review", "how good is smile? ", "Smile review", "Smile movie review"}; 
+                if(patternMatcher(smileReviews, g)){
+                    res2("Here's what I found on YouTube for Smile reviews");
+                    b.setVisible(true);
+                    b2.setVisible(true);
+                    b3.setVisible(true);
+                    if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                        try {
+                            Desktop.getDesktop().browse(new URI("https://www.youtube.com/results?search_query=smile+movie+review"));
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (URISyntaxException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                String [] blackAdamReviews = {"black adam movie review", "black Adam review", "how good is black adam? ", "Black Adam review", "Black Adam movie review"}; 
+                if(patternMatcher(blackAdamReviews, g)){
+                    res2("Here's what I found on YouTube for Black Adam movie reviews");
+                    b.setVisible(true);
+                    b2.setVisible(true);
+                    b3.setVisible(true);
+                    if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                        try {
+                            Desktop.getDesktop().browse(new URI("https://www.youtube.com/results?search_query=black+adam+review"));
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (URISyntaxException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                String [] searchWeb = {"google"}; 
+                if(patternMatcher(searchWeb, g)){
+                    res2("Redirecting you to Google.com...");
+                    String url = g.substring(6,g.length());
+                    String google1 = "https://www.google.com/search?q=";
+                    String google2 = "&sxsrf=ALiCzsZEGWrHUS_LI1oxbXgPGzxvdIr_zg%3A1670299930902&ei=GsGOY7LXNrng0PEPsvenyAU&ved=0ahUKEwiyzLKQkOT7AhU5MDQIHbL7CVkQ4dUDCA8&uact=5&oq=";
+                    String google3= "&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIECCMQJzIECCMQJzIECCMQJzIFCAAQkQIyBQgAEJECMgUIABCRAjIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BwgjELADECc6CggAEEcQ1gQQsANKBAhBGABKBAhGGABQZVi-AmD1A2gBcAF4AIABcYgBygGSAQMxLjGYAQCgAQHIAQnAAQE&sclient=gws-wiz-serp";
+                  
+                    String url1 = "";
+                    String[] values = url.split(" ");
+                    for(int i = 0; i < values.length; i++) {
+                        url1 += values[i] + "+";
+                    }
+                
+                    url1.substring(0,url.length() -1);
+                    String finalUrl = google1+url1+google2+url1+google3;
+                
+                    b.setVisible(true);
+                    b2.setVisible(true);
+                    b3.setVisible(true);
+                    if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                        try {
+                            Desktop.getDesktop().browse(new URI(finalUrl));
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (URISyntaxException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }
             
             if (count == 1) {
                 email = g;
@@ -279,7 +387,7 @@ chatbox.addActionListener(new ActionListener() {
                 if (db.getMovieTicketID(email) == -1){
                     res("You do not have a ticket registered to this email. \nHow else can I be of assistance? ");
                     if(tts){
-                    text.SpeakText("You do not have a ticket registered to this email. \nHow else can I be of assistance? ");
+                    text.SpeakText("You do not have a ticket registered to this email. How else can I be of assistance? ");
                     }
                     b.setText("Book a Ticket");
                     b2.setText("Amend your booking");
