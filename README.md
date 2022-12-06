@@ -1,10 +1,14 @@
 
 # Movie Virtual Assistant 
-## Project Description:
+## Main Project Description:
 
-A virtual assistant that allows for customers to book/change/cancel new or current movie ticket bookings. After confirming their booking, the customer gets their ticket sent to them via email. The entire project was developed using Java and utilized libraries such as JDBC, JSwing, Java AWT, and Java Mail for our features. We went with a simple, straight-forward design for our assistant's user interface. The user has two input options, either by directly typing into the chatbox or by clicking one of the buttons right above it. After the user has finished their interaction and their request was met, they receive a confirmation email of the interaction via the email on file.    
+A virtual assistant that allows for customers to book/change/cancel new or current movie ticket bookings. After confirming their booking, the customer gets their ticket sent to them via email. The entire project was developed using Java and utilized libraries such as JDBC, JSwing, Java AWT, and Java Mail for our features. We went with a simple, straight-forward design for our assistant's user interface. The user has two input options, either by directly typing into the chatbox or by clicking one of the buttons right above it. After the user has finished their interaction and their request was met, they receive a confirmation email of the interaction via the email on file.
 
-## New Features: 
+## Individual Project Added Description
+
+First, I added a text-to-speech accessibility feature. A button is shown at the top right corner of the chatbot as soon as it starts. The user can choose to click it at any time. Once clicked, the chatbot will start speaking first by introducing itself and then by readin any dialogue outputted from itself outloud. I used the FreeTTS API to make this possible. Secondly, I added more pattern matching options but this time I used the java.net.uri library to allow the chatbot to open webpages. I've added an option for the user to ask for reviews on a movie and get redirected to a YouTube search for that. I've also added a webpage pop-up for a "contact us" that redirects the user to cineplex's contact us page as an example. Lastly, I took this a step further and allowed the user to google anything they'd like through the chatbot and it would redirect them to the google results page for that exact query.
+
+## Old Features: 
 ### Amending an Existing Movie Ticket 
 Users can now finally edit their existing tickets. There are several ways to access this feature. User can either type in that they would like to edit/amend their ticket or click the relevant button at the beginning of the interaction. Once the process has started the user can amend any detail relating to the ticket. However, the customer details cannot be amended once saved on the database. This improves our system by being more forgiving with mistakes and providing the user with an option to edit their tickets in case they cannot make it to the current booked movie time.
 
@@ -31,3 +35,11 @@ We used MySQL, JDBC library and Docker to create a database to store customer, m
 We used pattern matching to give more leeway for users when inputting their request for the virtual assistant. Using string arrays of acceptable answers and different variations of the same request, we were able to compare the chatbox input with the elements of the array and set our variable values accordingly. Using pattern matching is a huge improvement from our previous version which hard-coded if-else statements and switch statements
 
 ![pattern_matching](/outputs/pattern_matching.png)
+
+## New Features
+
+### Text-To-Speech
+Using FreeTTS API, I was able to incorporate a Text-To-Speech option for users. As mentioned in the project description, there is now a new button for that feature. At anytime, the user can click this button and hear a greeting audio from Sally, who then begins to read out every request written on the chat area by the system.
+
+## Google Search
+Using the java.net.URI library, I've added the option for users to search for something on google simply by typing "google" followed by their query. The result will be in the form of a pop-up window opening in their default browser that shows a google results page for their question.
