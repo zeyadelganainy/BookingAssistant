@@ -36,10 +36,10 @@ We used pattern matching to give more leeway for users when inputting their requ
 
 ![pattern_matching](/outputs/pattern_matching.png)
 
-## New Features
+## New Features & APIs
 
 ### Text-To-Speech
 Using FreeTTS API, I was able to incorporate a Text-To-Speech option for users. As mentioned in the project description, there is now a new button for that feature. At anytime, the user can click this button and hear a greeting audio from Sally, who then begins to read out every request written on the chat area by the system.
 
-## Google Search
+### Google Search
 Using the java.net.URI library, I've added the option for users to search for something on google simply by typing "google" followed by their query. The result will be in the form of a pop-up window opening in their default browser that shows a google results page for their question.
